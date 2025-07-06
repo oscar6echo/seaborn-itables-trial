@@ -2,6 +2,7 @@ import base64
 import io
 import re
 from pathlib import Path
+from typing import Union
 
 import itables
 import polars as pl
@@ -41,13 +42,6 @@ class Builder:
         print(name)
         p_data = f_data / f"{name}.csv"
         self.df_countries = pl.read_csv(p_data)
-
-        # print()
-        # print("load iptables datasets:")
-
-        # name = "countries"
-        # print(name)
-        # self.df_countries = itables.sample_dfs.get_countries(html=False)
 
         self.f_out = Path("output")
         self.f_out.mkdir(exist_ok=True)
@@ -125,7 +119,7 @@ class Builder:
 
     def save(
         self,
-        g: sns.JointGrid,
+        g: Union[sns.FacetGrid, sns.JointGrid],
         name: str,
         img_fmt="png",
         transparent=False,
