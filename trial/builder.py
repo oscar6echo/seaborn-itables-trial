@@ -160,6 +160,28 @@ class Builder:
 
         return out
 
+    def save_df_as_html(self, df: pl.DataFrame, name: str):
+        """"""
+        search = {"regex": True, "caseInsensitive": True, "search": ""}
+        html = itables.to_html_datatable(
+            df,
+            display_logo_when_loading=False,
+            connected=True,
+            #
+            classes="display compact nowrap",
+            style="caption-side:top",
+            search=search,
+            # lengthMenu=[2, 5, 10, 20, 50],
+            # pageLength=15,
+            paging=False,
+            scrollY="500px",
+            scrollCollapse=True,
+            buttons=["copyHtml5", "csvHtml5", "excelHtml5"],
+        )
+        p_out = self.f_out / name
+        print(f"save df to {p_out}")
+        p_out.write_text(html)
+
 
 # --- mail
 
